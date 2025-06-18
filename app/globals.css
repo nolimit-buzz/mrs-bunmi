@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .all-\[unset\] {
+    all: unset;
+  }
+}
+
+:root {
+  --dark-bluecolor-1: rgba(36, 47, 101, 1);
+  --dark-bluecolor-10: rgba(12, 16, 34, 1);
+  --dark-bluecolor-3: rgba(109, 116, 152, 1);
+  --dark-bluecolor-5: rgba(182, 186, 204, 1);
+  --kit-baliniz-com-inter-light-font-family: "Inter", Helvetica;
+  --kit-baliniz-com-inter-light-font-size: 18px;
+  --kit-baliniz-com-inter-light-font-style: normal;
+  --kit-baliniz-com-inter-light-font-weight: 300;
+  --kit-baliniz-com-inter-light-letter-spacing: 0px;
+  --kit-baliniz-com-inter-light-line-height: 27px;
+  --kit-baliniz-com-semantic-item-font-family: "Mukta", Helvetica;
+  --kit-baliniz-com-semantic-item-font-size: 15px;
+  --kit-baliniz-com-semantic-item-font-style: normal;
+  --kit-baliniz-com-semantic-item-font-weight: 300;
+  --kit-baliniz-com-semantic-item-letter-spacing: 0px;
+  --kit-baliniz-com-semantic-item-line-height: 22.5px;
+  --kit-baliniz-com-semantic-link-font-family: "Font Awesome 5 Free", Helvetica;
+  --kit-baliniz-com-semantic-link-font-size: 14px;
+  --kit-baliniz-com-semantic-link-font-style: normal;
+  --kit-baliniz-com-semantic-link-font-weight: 400;
+  --kit-baliniz-com-semantic-link-letter-spacing: 0px;
+  --kit-baliniz-com-semantic-link-line-height: 14px;
+  --light-bluecolor-6: rgba(213, 242, 250, 1);
+  --shadow-1: 0px 20px 40px 0px rgba(82, 129, 236, 0.2);
+  --shadow-2: 0px 25px 40px 0px rgba(82, 129, 236, 0.05);
+  --white: rgba(255, 255, 255, 1);
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+
+    --card: transparent;
+    --card-foreground: 222.2 47.4% 11.2%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 215 20.2% 65.1%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 224 71% 4%;
+    --foreground: 213 31% 91%;
+
+    --muted: 223 47% 11%;
+    --muted-foreground: 215.4 16.3% 56.9%;
+
+    --accent: 216 34% 17%;
+    --accent-foreground: 210 40% 98%;
+
+    --popover: 224 71% 4%;
+    --popover-foreground: 215 20.2% 65.1%;
+
+    --border: 216 34% 17%;
+    --input: 216 34% 17%;
+
+    --card: transparent;
+    --card-foreground: 213 31% 91%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 1.2%;
+
+    --secondary: 222.2 47.4% 11.2%;
+    --secondary-foreground: 210 40% 98%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 216 34% 17%;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
