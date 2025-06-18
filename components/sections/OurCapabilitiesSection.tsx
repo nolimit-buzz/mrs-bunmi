@@ -62,13 +62,58 @@ const capabilitiesData = [
 ];
 
 export const OurCapabilitiesSection = (): JSX.Element => {
-  const { ref, controls } = useScrollAnimation();
+  const { ref, controls, inView } = useScrollAnimation();
+
+  // Animation variants for capability cards
+  const cardVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 30, 
+      scale: 0.98
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.6,
+        ease: [0.25, 0.46, 0.45, 0.94] as const,
+      },
+    },
+  };
+
+  const iconVariants = {
+    hidden: { 
+      opacity: 0, 
+      scale: 0.9
+    },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut" as const,
+      },
+    },
+  };
+
+  const featureVariants = {
+    hidden: { opacity: 0, x: -10 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.4,
+        ease: "easeOut" as const,
+      },
+    },
+  };
 
   return (
     <motion.div
       ref={ref}
-      // initial="hidden"
-      // animate={controls}
+      initial="hidden"
+      animate={inView ? "visible" : "hidden"}
       variants={staggerContainer}
       className="mt-12 flex flex-col items-center justify-center gap-[80px] py-[100px] px-6 w-full bg-white"
     >
@@ -114,19 +159,26 @@ export const OurCapabilitiesSection = (): JSX.Element => {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 w-full max-w-[1200px]"
         >
           {capabilitiesData.map((capability, index) => (
-            <motion.div key={capability.id} variants={staggerItem} className="relative">
+            <motion.div 
+              key={capability.id} 
+              variants={cardVariants}
+              className="relative"
+            >
               <div className="relative">
                 <motion.div
                   className={`absolute -top-16 left-[10%] transform -translate-x-1/2 ${capability.bgColor} rounded-[20px] w-[80%] h-[253px] flex flex-col items-start justify-start gap-4 z-20 p-6 pt-8`}
+                  variants={iconVariants}
                   whileHover={{
-                    rotateY: 5,
-                    scale: 1.02,
-                    transition: { duration: 0.3, ease: "easeOut" }
+                    scale: 1.01,
+                    transition: { duration: 0.2, ease: "easeOut" as const }
                   }}
-                  initial={{ rotateY: 0, scale: 1 }}
                 >
                   <motion.div
                     className={`${capability.iconBg} rounded-[12px] w-[64px] h-[64px] flex items-center justify-center`}
+                    whileHover={{
+                      scale: 1.05,
+                      transition: { duration: 0.3 }
+                    }}
                   >
                     <svg width="30" height="24" viewBox="0 0 30 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path
@@ -136,43 +188,80 @@ export const OurCapabilitiesSection = (): JSX.Element => {
                     </svg>
                   </motion.div>
 
-                  <h3 className={`[font-family:'Outfit',Helvetica] font-bold ${capability.textColor} text-xl leading-[24px] text-left w-full`}>
+                  <motion.h3 
+                    className={`[font-family:'Outfit',Helvetica] font-bold ${capability.textColor} text-xl leading-[24px] text-left w-full`}
+                    variants={{
+                      hidden: { opacity: 0, y: 20 },
+                      visible: {
+                        opacity: 1,
+                        y: 0,
+                        transition: {
+                          duration: 0.6,
+                          delay: 0.2,
+                          ease: "easeOut" as const
+                        }
+                      }
+                    }}
+                  >
                     {capability.title}
-                  </h3>
+                  </motion.h3>
 
-                  <p className={`[font-family:'Outfit',Helvetica] font-normal ${capability.descColor} text-sm leading-[18px] text-left w-full`}>
+                  <motion.p 
+                    className={`[font-family:'Outfit',Helvetica] font-normal ${capability.descColor} text-sm leading-[18px] text-left w-full`}
+                    variants={{
+                      hidden: { opacity: 0, y: 20 },
+                      visible: {
+                        opacity: 1,
+                        y: 0,
+                        transition: {
+                          duration: 0.6,
+                          delay: 0.3,
+                          ease: "easeOut" as const
+                        }
+                      }
+                    }}
+                  >
                     {capability.description}
-                  </p>
+                  </motion.p>
                 </motion.div>
 
                 <motion.div
                   className="bg-[#F7F8FB] rounded-[20px] p-6 pt-[200px] flex flex-col gap-4 min-h-[320px] relative border border-gray-100 mt-[126px]"
+                  variants={{
+                    hidden: { opacity: 0, y: 20, scale: 0.98 },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      scale: 1,
+                      transition: {
+                        duration: 0.6,
+                        delay: 0.2,
+                        ease: [0.25, 0.46, 0.45, 0.94] as const
+                      }
+                    }
+                  }}
                   whileHover={{
-                    y: -5,
-                    boxShadow: "0 20px 40px rgba(0,0,0,0.1)",
-                    transition: { duration: 0.3, ease: "easeOut" }
+                    y: -2,
+                    boxShadow: "0 10px 25px rgba(0,0,0,0.08)",
+                    transition: { duration: 0.2, ease: "easeOut" as const }
                   }}
                 >
-                  <div className="flex flex-col gap-3 flex-1">
+                  <motion.div 
+                    className="flex flex-col gap-3 flex-1"
+                    variants={staggerContainer}
+                  >
                     {capability.features.map((feature, featureIndex) => (
                       <motion.div
                         key={featureIndex}
                         className="flex items-center gap-3"
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{
-                          delay: index * 0.1 + featureIndex * 0.05,
-                          duration: 0.5,
-                          ease: "easeOut"
-                        }}
-                        whileHover={{ x: 5, transition: { duration: 0.2 } }}
+                        variants={featureVariants}
+                        whileHover={{ x: 2, transition: { duration: 0.2 } }}
                       >
                         <motion.div
                           className={`w-4 h-4 rounded-full ${capability.checkBgColor} flex items-center justify-center flex-shrink-0`}
                           whileHover={{
-                            scale: 1.2,
-                            rotate: 180,
-                            transition: { duration: 0.3 }
+                            scale: 1.1,
+                            transition: { duration: 0.2 }
                           }}
                         >
                           <CheckIcon className={`w-2.5 h-2.5 ${capability.checkIconColor}`} />
@@ -182,7 +271,7 @@ export const OurCapabilitiesSection = (): JSX.Element => {
                         </span>
                       </motion.div>
                     ))}
-                  </div>
+                  </motion.div>
                 </motion.div>
               </div>
             </motion.div>
