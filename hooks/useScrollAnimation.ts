@@ -15,7 +15,7 @@ export const useScrollAnimation = (threshold = 0.1) => {
     }
   }, [controls, inView]);
 
-  return { ref, controls };
+  return { ref, controls, inView };
 };
 
 export const fadeInUp = {
@@ -28,7 +28,7 @@ export const fadeInUp = {
     y: 0,
     transition: {
       duration: 0.8,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      ease: [0.25, 0.46, 0.45, 0.94] as const,
     },
   },
 };
@@ -43,7 +43,7 @@ export const fadeInLeft = {
     x: 0,
     transition: {
       duration: 0.8,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      ease: [0.25, 0.46, 0.45, 0.94] as const,
     },
   },
 };
@@ -58,7 +58,7 @@ export const fadeInRight = {
     x: 0,
     transition: {
       duration: 0.8,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      ease: [0.25, 0.46, 0.45, 0.94] as const,
     },
   },
 };
@@ -73,7 +73,7 @@ export const scaleIn = {
     scale: 1,
     transition: {
       duration: 0.6,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      ease: [0.25, 0.46, 0.45, 0.94] as const,
     },
   },
 };
@@ -98,7 +98,7 @@ export const staggerItem = {
     y: 0,
     transition: {
       duration: 0.6,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      ease: [0.25, 0.46, 0.45, 0.94] as const,
     },
   },
 };

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
+import { motion, type HTMLMotionProps } from "framer-motion";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
@@ -36,21 +36,64 @@ const buttonVariants = cva(
 );
 
 export interface AnimatedButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+  extends Omit<HTMLMotionProps<"button">, "ref">,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
+  children?: React.ReactNode;
 }
 
 const AnimatedButton = React.forwardRef<HTMLButtonElement, AnimatedButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : motion.button;
+  ({ className, variant, size, asChild = false, children, ...props }, ref) => {
+    if (asChild) {
+      // Filter out motion-specific props for Slot
+      const { 
+        whileHover, 
+        whileTap, 
+        initial, 
+        animate, 
+        transition,
+        style,
+        onDrag,
+        onDragStart,
+        onDragEnd,
+        onPan,
+        onPanStart,
+        onPanEnd,
+        onTap,
+        onTapStart,
+        onTapCancel,
+        onHoverStart,
+        onHoverEnd,
+        onFocus,
+        onBlur,
+        onUpdate,
+        onAnimationStart,
+        onAnimationComplete,
+        onLayoutMeasure,
+        onLayoutAnimationComplete,
+        onViewportEnter,
+        onViewportLeave,
+        ...slotProps 
+      } = props;
+      
+      return (
+        <Slot
+          className={cn(buttonVariants({ variant, size, className }))}
+          ref={ref}
+          {...slotProps}
+        >
+          {children}
+        </Slot>
+      );
+    }
+
     return (
-      <Comp
+      <motion.button
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
         whileHover={{ 
           scale: 1.05,
-          transition: { duration: 0.2, ease: "easeOut" }
+          transition: { duration: 0.2, ease: "easeOut" as const }
         }}
         whileTap={{ 
           scale: 0.95,
@@ -58,9 +101,11 @@ const AnimatedButton = React.forwardRef<HTMLButtonElement, AnimatedButtonProps>(
         }}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
+        transition={{ duration: 0.5, ease: "easeOut" as const }}
         {...props}
-      />
+      >
+        {children}
+      </motion.button>
     );
   }
 );
