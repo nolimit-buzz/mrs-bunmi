@@ -228,7 +228,7 @@ export const AboutSection = (): JSX.Element => {
       rotateY: 0,
       transition: {
         duration: 1,
-        ease: [0.25, 0.46, 0.45, 0.94],
+        ease: [0.25, 0.46, 0.45, 0.94] as const,
       },
     },
   };
@@ -241,7 +241,7 @@ export const AboutSection = (): JSX.Element => {
       transition: {
         duration: 0.8,
         delay: 0.5,
-        ease: "easeOut",
+        ease: "easeOut" as const,
       },
     },
   };
@@ -363,18 +363,7 @@ export const AboutSection = (): JSX.Element => {
           </motion.div>
         </motion.div>
 
-        <motion.div variants={{
-          hidden: { opacity: 0, scale: 0.8, rotateY: -15 },
-          visible: { 
-            opacity: 1, 
-            scale: 1,
-            rotateY: 0,
-            transition: {
-              duration: 0.5,
-              ease: [0.6, 0.01, -0.05, 0.95]
-            }
-          }
-        }}>
+        <motion.div variants={videoCardVariants}>
           <Card className="relative w-full lg:w-[575px] h-[400px] lg:h-[653px] bg-[#091d2d] rounded-[10px] overflow-hidden">
             <motion.div
               className="w-full h-full rounded-[10px] overflow-hidden relative"
@@ -392,18 +381,7 @@ export const AboutSection = (): JSX.Element => {
               <div className="absolute inset-0 bg-[#091d2d] opacity-70"></div>
               <motion.div
                 className="absolute inset-0 flex items-center justify-center"
-                variants={{
-                  hidden: { scale: 0, rotate: 0 },
-                  visible: { 
-                    scale: 1,
-                    rotate: 0,
-                    transition: {
-                      duration: 0.5,
-                      delay: 0.2,
-                      ease: [0.6, 0.01, -0.05, 0.95]
-                    }
-                  }
-                }}
+                variants={playIconVariants}
               >
                 <motion.div
                   whileHover={{

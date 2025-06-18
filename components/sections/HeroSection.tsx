@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 import { useScrollAnimation, fadeInUp, fadeInLeft, fadeInRight, staggerContainer, staggerItem, scaleIn } from "@/hooks/useScrollAnimation";
 
 export const HeroSection = (): JSX.Element => {
-  const { ref, controls, inView } = useScrollAnimation();
+  const { ref, controls } = useScrollAnimation();
 
   // User testimonial avatars data
   const testimonialAvatars = [
@@ -88,7 +88,7 @@ export const HeroSection = (): JSX.Element => {
     <motion.section
       ref={ref}
       initial="hidden"
-      animate={inView ? "visible" : "hidden"}
+      animate={controls}
       variants={staggerContainer}
       className="flex flex-col items-start justify-center gap-[60px] px-6 py-[120px] md:px-[136px] w-full max-w-[1440px] mx-auto"
     >
